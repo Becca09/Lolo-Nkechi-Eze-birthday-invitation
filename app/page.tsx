@@ -143,7 +143,7 @@ export default function Home() {
                     <div className="w-12 h-12 bg-stone-800 flex items-center justify-center group-hover:bg-stone-900 transition-colors">
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
-                    <h4 className="text-2xl font-semibold text-stone-800">Where</h4>
+                    <h4 className="text-2xl font-semibold text-stone-800">Location</h4>
                   </div>
                   <div>
                     <p className="text-lg text-stone-700 font-light mb-4 leading-relaxed">

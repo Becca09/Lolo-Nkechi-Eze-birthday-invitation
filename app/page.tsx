@@ -6,11 +6,18 @@ import { useState, useEffect } from 'react'
 
 export default function Home() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const images = ['/photo.JPG', '/photo1.JPG', '/photo2.JPG']
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length)
+      setIsTransitioning(true)
+      setTimeout(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length)
+        setTimeout(() => {
+          setIsTransitioning(false)
+        }, 100)
+      }, 400) // White screen duration
     }, 3000) // Change image every 3 seconds
 
     return () => clearInterval(interval)
@@ -60,13 +67,13 @@ export default function Home() {
                 <div className="relative group">
                   <div className="absolute -inset-2 bg-gradient-to-br from-rose-300 via-rose-200 to-rose-300 opacity-0 group-hover:opacity-15 blur-xl transition-all duration-700"></div>
                   <div className="relative bg-white p-2 shadow-xl transform hover:scale-[1.02] transition-all duration-500">
-                    <div className="relative w-[280px] h-[370px] md:w-[320px] md:h-[420px] overflow-hidden">
+                    <div className="relative w-[280px] h-[370px] md:w-[320px] md:h-[420px] overflow-hidden bg-white">
                       <Image
                         key={currentImageIndex}
                         src={images[currentImageIndex]}
                         alt="Lolo Nkechi Eze"
                         fill
-                        className="object-cover transition-all duration-1000 ease-in-out"
+                        className={`object-cover transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
                         priority
                       />
                     </div>
@@ -78,13 +85,13 @@ export default function Home() {
                   {/* Photo 1 - Next image */}
                   <div className="relative group">
                     <div className="relative bg-white p-2 shadow-lg transform hover:scale-[1.02] transition-all duration-500">
-                      <div className="relative w-[140px] h-[185px] overflow-hidden">
+                      <div className="relative w-[140px] h-[185px] overflow-hidden bg-white">
                         <Image
                           key={`side1-${currentImageIndex}`}
                           src={images[(currentImageIndex + 1) % images.length]}
                           alt="Lolo Nkechi Eze"
                           fill
-                          className="object-cover transition-all duration-1000 ease-in-out"
+                          className={`object-cover transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
                         />
                       </div>
                     </div>
@@ -93,13 +100,13 @@ export default function Home() {
                   {/* Photo 2 - Previous image */}
                   <div className="relative group">
                     <div className="relative bg-white p-2 shadow-lg transform hover:scale-[1.02] transition-all duration-500">
-                      <div className="relative w-[140px] h-[185px] overflow-hidden">
+                      <div className="relative w-[140px] h-[185px] overflow-hidden bg-white">
                         <Image
                           key={`side2-${currentImageIndex}`}
                           src={images[(currentImageIndex + 2) % images.length]}
                           alt="Lolo Nkechi Eze"
                           fill
-                          className="object-cover transition-all duration-1000 ease-in-out"
+                          className={`object-cover transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
                         />
                       </div>
                     </div>
